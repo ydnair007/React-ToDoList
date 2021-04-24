@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useEffect, useRef } from "react";
 import "../Login.css";
 import base_url from "../api/bootapi";
-import { toast } from "react-toastify";
+import { toast, ToastContainer, Zoom } from "react-toastify";
+import * as EmailValidator from "email-validator";
 
 const Login = (props) => {
   const uname = useRef(null);
@@ -12,41 +13,58 @@ const Login = (props) => {
   }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.get(`${base_url}/user/find/${uname.current.value}`).then(
-      (response) => {
-        let validUser = response.data;
-        if (
-          validUser.email === uname.current.value &&
-          validUser.pass === upass.current.value
-        ) {
-          props.setTempUser(validUser);
-          console.log("hurray");
-        } else {
-          uname.current.value = "";
-          upass.current.value = "";
-          console.log("worng username or password!");
-        }
-      },
-      (error) => {
-        let user = {
-          email: uname.current.value,
-          pass: upass.current.value,
-          lists: [],
-        };
-        axios.post(`${base_url}/user/add`, user).then(
-          (response) => {
-            toast.dark("User added..");
-            props.setTempUser(user);
-          },
-          (error) => {
-            toast.error("User Not added");
+    const validator = EmailValidator.validate(uname.current.value);
+    if (validator) {
+      axios.get(`${base_url}/user/find/${uname.current.value}`).then(
+        (response) => {
+          let validUser = response.data;
+          if (
+            validUser.email === uname.current.value &&
+            validUser.pass === upass.current.value
+          ) {
+            props.setTempUser(validUser);
+            console.log("hurray");
+          } else {
+            uname.current.value = "";
+            upass.current.value = "";
+            console.log("worng username or password!");
           }
-        );
-      }
-    );
+        },
+        (error) => {
+          let user = {
+            email: uname.current.value,
+            pass: upass.current.value,
+            lists: [],
+          };
+          axios.post(`${base_url}/user/add`, user).then(
+            (response) => {
+              toast.dark("User added..");
+              props.setTempUser(user);
+            },
+            (error) => {
+              toast.error("User Not added");
+            }
+          );
+        }
+      );
+    } else {
+      toast.dark("🔥 Enter Correct Email Address");
+    }
   };
   return (
     <div className="main">
+      <ToastContainer
+        position="top-center"
+        autoClose={1500}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        transition={Zoom}
+      ></ToastContainer>
       <p className="sign mb-1" style={{ alignContent: "center" }}>
         Sign in
       </p>

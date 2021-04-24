@@ -74,6 +74,7 @@ const ToDoList = (props) => {
   useEffect(() => {
     document.title = "To-Do | Home";
     getData();
+    toast.dark("🚀 App Loaded..");
   }, []);
 
   return (

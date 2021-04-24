@@ -15,9 +15,7 @@ import Login from "./components/Login";
 
 function App() {
   const [tempUser, setTempUser] = useState({});
-  useEffect(() => {
-    toast.dark("🚀 App Loaded..");
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div className="all" style={{ overflow: "-moz-hidden-unscrollable" }}>
       <Header tempUser={tempUser} setTempUser={setTempUser}></Header>
