@@ -66,7 +66,7 @@ const Login = (props) => {
         transition={Zoom}
       ></ToastContainer>
       <p className="sign mb-1" style={{ alignContent: "center" }}>
-        Sign in
+        "Sign in" && "Sign up"
       </p>
       <form style={{ alignContent: "center" }} className="form1 mr-5">
         <input
