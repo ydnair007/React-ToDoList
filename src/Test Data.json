@@ -1,0 +1,15 @@
+{
+  "email": "yadu",
+  "pass": "admin",
+  "lists": [{
+    "title":"Drink tea",
+    "desp":"I love tea alott and that too black tea is lubb so stay away from my black tea",
+    "checked":true
+  },
+  {
+    "title":"Cook Food",
+    "desp":"I hate cooking to be honest one of the worst things",
+    "checked":false
+  }
+  ]
+}
