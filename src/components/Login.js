@@ -1,23 +1,28 @@
 import axios from "axios";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../Login.css";
 import base_url from "../api/bootapi";
 import { toast, ToastContainer, Zoom } from "react-toastify";
 import * as EmailValidator from "email-validator";
+import Loader from "react-loader-spinner";
 
 const Login = (props) => {
   const uname = useRef(null);
   const upass = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     document.title = "Signin";
   }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     const validator = EmailValidator.validate(uname.current.value);
+    setIsLoading(true);
     if (validator) {
       axios.get(`${base_url}/user/find/${uname.current.value}`).then(
         (response) => {
           let validUser = response.data;
+          console.log(validUser);
           if (
             validUser.email === uname.current.value &&
             validUser.pass === upass.current.value
@@ -27,6 +32,7 @@ const Login = (props) => {
           } else {
             uname.current.value = "";
             upass.current.value = "";
+            setIsLoading(false);
             console.log("worng username or password!");
           }
         },
@@ -42,12 +48,14 @@ const Login = (props) => {
               props.setTempUser(user);
             },
             (error) => {
+              setIsLoading(false);
               toast.error("User Not added");
             }
           );
         }
       );
     } else {
+      setIsLoading(false);
       toast.dark("🔥 Enter Correct Email Address");
     }
   };
@@ -89,7 +97,11 @@ const Login = (props) => {
         />
         <span className="mr-5">
           <button className="submit mr-4" onClick={handleSubmit}>
-            Sign in
+            {isLoading ? (
+              <Loader type="ThreeDots" color="#fff" height={20} width={20} />
+            ) : (
+              "Sign in"
+            )}
           </button>
         </span>
         <p className="forgot ml-5 mt-2">
