@@ -15,7 +15,7 @@ const Profile = (props) => {
   }, []);
 
   const updatePass = (user) => {
-    axios.put(`${base_url}/update`, user).then(
+    axios.put(`${base_url}/user/update`, user).then(
       (response) => {
         console.log("Password updated");
       },
