@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Container, ListGroup } from "reactstrap";
+import { ListGroup } from "reactstrap";
 
 export default function Menu() {
   return (

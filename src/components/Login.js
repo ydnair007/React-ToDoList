@@ -22,18 +22,16 @@ const Login = (props) => {
       axios.get(`${base_url}/user/find/${uname.current.value}`).then(
         (response) => {
           let validUser = response.data;
-          console.log(validUser);
           if (
             validUser.email === uname.current.value &&
             validUser.pass === upass.current.value
           ) {
             props.setTempUser(validUser);
-            console.log("hurray");
           } else {
             uname.current.value = "";
             upass.current.value = "";
             setIsLoading(false);
-            console.log("worng username or password!");
+            toast.error("worng username or password!");
           }
         },
         (error) => {
