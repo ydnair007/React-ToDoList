@@ -1,7 +1,7 @@
 {
   "name": "todo-list",
   "version": "0.1.0",
-  "proxy": "https://yadu-todolist.herokuapp.com",
+  "proxy": "https://*.herokuapp.com",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",
