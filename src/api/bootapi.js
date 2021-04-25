@@ -1,2 +1,2 @@
-const base_url = "https://yadu-todolist.herokuapp.com";
+const base_url = "https://*.herokuapp.com";
 export default base_url;
